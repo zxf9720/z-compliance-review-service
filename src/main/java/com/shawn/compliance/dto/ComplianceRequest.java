@@ -1,4 +1,4 @@
-package com.shawn.wealth.compliance.dto;
+package com.shawn.compliance.dto;
 
 public record ComplianceRequest(
         String policy,

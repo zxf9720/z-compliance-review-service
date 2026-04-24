@@ -1,7 +1,7 @@
-package com.shawn.wealth.compliance.service;
+package com.shawn.compliance.service;
 
-import com.shawn.wealth.compliance.dto.ComplianceRequest;
-import com.shawn.wealth.compliance.dto.ComplianceResponse;
+import com.shawn.compliance.dto.ComplianceRequest;
+import com.shawn.compliance.dto.ComplianceResponse;
 import org.springframework.stereotype.Service;
 
 @Service

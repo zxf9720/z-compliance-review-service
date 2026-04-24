@@ -1,4 +1,4 @@
-package com.shawn.wealth.compliance;
+package com.shawn.compliance;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

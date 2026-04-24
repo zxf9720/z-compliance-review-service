@@ -1,8 +1,8 @@
-package com.shawn.wealth.compliance.controller;
+package com.shawn.compliance.controller;
 
-import com.shawn.wealth.compliance.dto.ComplianceRequest;
-import com.shawn.wealth.compliance.dto.ComplianceResponse;
-import com.shawn.wealth.compliance.service.ComplianceService;
+import com.shawn.compliance.dto.ComplianceRequest;
+import com.shawn.compliance.dto.ComplianceResponse;
+import com.shawn.compliance.service.ComplianceService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
