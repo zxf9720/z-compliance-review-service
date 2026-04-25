@@ -22,4 +22,13 @@ openai:
 
 ollama:
   base-url: http://localhost:11434
-  model: gemma4
+  chat-model: gemma4
+  embedding-model: nomic-embed-text
+
+pgvector:
+  host: localhost
+  port: 5432
+  database: appdb
+  user: appuser
+  password: apppass
+  table: compliance_embeddings

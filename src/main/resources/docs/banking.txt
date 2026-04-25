@@ -1,0 +1,5 @@
+A savings account is used for storing money and earning interest.
+
+A chequing account is used for daily transactions such as deposits, withdrawals, and bill payments.
+
+A GIC is a guaranteed investment certificate with a fixed term and usually a fixed interest rate.
