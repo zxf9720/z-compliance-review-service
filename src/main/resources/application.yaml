@@ -1,6 +1,29 @@
 spring:
   application:
     name: z-compliance-review-service
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: appuser
+    password: apppass
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: compliance-agent-c
+      auto-offset-reset: earliest
+    producer:
+      acks: all
 
 server:
   port: 8083
@@ -32,3 +55,13 @@ pgvector:
   user: appuser
   password: apppass
   table: compliance_embeddings
+
+app:
+  kafka:
+    topics:
+      compliance-requested: wealth.compliance.review.requested
+      compliance-completed: wealth.compliance.review.completed
+
+services:
+  customer-data:
+    base-url: http://localhost:8082
