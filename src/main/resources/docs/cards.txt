@@ -1,5 +1,0 @@
-A credit card allows users to borrow money up to a limit for purchases.
-
-Paying only the minimum balance may result in interest charges.
-
-A debit card uses money directly from a bank account.

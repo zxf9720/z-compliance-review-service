@@ -1,0 +1,4 @@
+KYC Policy
+Customers must complete KYC verification.
+Includes identity and risk checks.
+Unverified customers restricted.
