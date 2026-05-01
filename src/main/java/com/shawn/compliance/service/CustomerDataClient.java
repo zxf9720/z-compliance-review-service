@@ -12,7 +12,11 @@ public class CustomerDataClient {
     private final String baseUrl;
 
     public CustomerDataClient(@Value("${services.customer-data.base-url}") String baseUrl) {
-        this.restTemplate = new RestTemplate();
+        this(new RestTemplate(), baseUrl);
+    }
+
+    CustomerDataClient(RestTemplate restTemplate, String baseUrl) {
+        this.restTemplate = restTemplate;
         this.baseUrl = baseUrl;
     }
 

@@ -29,15 +29,23 @@ public class ComplianceDocumentService {
 
     private final EmbeddingModel embeddingModel;
     private final EmbeddingStore<TextSegment> embeddingStore;
+    private final String docsPath;
 
     public ComplianceDocumentService(EmbeddingModel embeddingModel,
                                      EmbeddingStore<TextSegment> embeddingStore) {
+        this(embeddingModel, embeddingStore, LOCAL_DOCS_PATH);
+    }
+
+    ComplianceDocumentService(EmbeddingModel embeddingModel,
+                              EmbeddingStore<TextSegment> embeddingStore,
+                              String docsPath) {
         this.embeddingModel = embeddingModel;
         this.embeddingStore = embeddingStore;
+        this.docsPath = docsPath;
     }
 
     public ComplianceDocumentIngestResponse bootstrapDocuments() {
-        File docsFolder = new File(LOCAL_DOCS_PATH);
+        File docsFolder = new File(docsPath);
 
         if (!docsFolder.exists() || !docsFolder.isDirectory()) {
             throw new IllegalArgumentException("Docs folder not found: " + docsFolder.getAbsolutePath());
