@@ -10,6 +10,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -31,6 +32,7 @@ public class ComplianceDocumentService {
     private final EmbeddingStore<TextSegment> embeddingStore;
     private final String docsPath;
 
+    @Autowired
     public ComplianceDocumentService(EmbeddingModel embeddingModel,
                                      EmbeddingStore<TextSegment> embeddingStore) {
         this(embeddingModel, embeddingStore, LOCAL_DOCS_PATH);
