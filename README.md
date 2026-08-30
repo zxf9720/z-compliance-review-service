@@ -49,14 +49,16 @@ z-customer-data-service (Agent B)
 
 ## Tech Stack
 
-- Java 21
-- Spring Boot 3.5.x
+- Java 25
+- Spring Boot 4.1.0
+- Spring AI 2.0.0
+- springdoc-openapi 3.0.2
 - Spring Web, Spring Data JPA, Spring Kafka, Spring Data Redis
 - LangChain4j with OpenAI, Ollama, and pgvector
 - PostgreSQL with pgvector
 - Apache PDFBox and Apache POI
 - JUnit 5, Mockito, AssertJ
-- JaCoCo
+- JaCoCo 0.8.14
 
 ---
 
@@ -69,6 +71,9 @@ z-customer-data-service (Agent B)
 - Redis: localhost:6379
 - Ollama: http://localhost:11434
 - Customer Service: http://localhost:8082
+
+For a local build, install JDK 25 and use the included Maven wrapper. A local
+Maven installation is not required.
 
 ---
 
@@ -118,9 +123,11 @@ Content-Type: application/json
   "policy": "TFSA policy text",
   "customer": {
     "customerId": "C1001",
+    "age": 35,
+    "annualIncome": 120000,
     "riskLevel": "MEDIUM",
-    "kycStatus": "VERIFIED",
-    "annualIncome": 120000
+    "investmentObjective": "LONG_TERM_GROWTH",
+    "kycStatus": "VERIFIED"
   }
 }
 ```
@@ -142,6 +149,12 @@ Content-Type: application/json
 ```http
 POST /compliance/documents/bootstrap
 ```
+
+This indexes supported `.txt`, `.md`, `.pdf`, and `.docx` files from
+`src/main/resources/docs`, splitting them into overlapping chunks for vector
+search. The bundled policy documents include
+[`income_requirement.txt`](src/main/resources/docs/income_requirement.txt),
+which describes minimum-income restrictions and verification requirements.
 
 ---
 
@@ -205,7 +218,8 @@ Fallback strategy:
 
 ## Vector Search
 
-pgvector stores compliance documents and retrieves context for explanation，improves grounding and reduces hallucination。
+pgvector stores compliance documents and retrieves context for explanations,
+improving grounding and reducing hallucinations.
 
 ---
 
@@ -239,18 +253,43 @@ pgvector stores compliance documents and retrieves context for explanation，imp
 ## Run
 
 ```bash
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
-http://localhost:8083
+The service starts at http://localhost:8083.
+
+OpenAPI endpoints:
+
+- Swagger UI: http://localhost:8083/swagger-ui.html
+- OpenAPI JSON: http://localhost:8083/v3/api-docs
+
+### Docker
+
+Build the Java 25 image (the build runs the test suite):
+
+```bash
+docker build -t z-compliance-review-service:jdk25 .
+```
+
+Run it with host services available through `host.docker.internal`:
+
+```bash
+docker run --rm -p 8083:8083 \
+  -e OPENAI_API_KEY="$OPENAI_API_KEY" \
+  -e SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/appdb \
+  -e SPRING_DATA_REDIS_HOST=host.docker.internal \
+  -e SPRING_KAFKA_BOOTSTRAP_SERVERS=host.docker.internal:9092 \
+  -e SERVICES_CUSTOMER_DATA_BASE_URL=http://host.docker.internal:8082 \
+  z-compliance-review-service:jdk25
+```
 
 ---
 
 ## Tests
 
 ```bash
-mvn test
-mvn verify
+./mvnw test
+./mvnw verify
 ```
 
 ---
@@ -264,5 +303,3 @@ mvn verify
 - Approve otherwise
 
 ---
-
-
