@@ -1,7 +1,5 @@
 package com.shawn.compliance.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shawn.compliance.dto.ComplianceRequest;
 import com.shawn.compliance.dto.ComplianceResponse;
 import com.shawn.compliance.dto.CustomerProfileResponse;
@@ -11,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
